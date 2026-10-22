@@ -6,22 +6,26 @@
 
 Так как Debian 10 (Buster) официально не поддерживается, все пакеты перенесены в архив. Без этих команд `apt` не сможет найти нужные утилиты.
 
+Бэкап текущего списка репозиториев
 ```bash
-# Бэкап текущего списка репозиториев
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
-
-# Замена адресов на архивные
+```
+Замена адресов на архивные
+```bash
 sudo sed -i 's|deb.debian.org|archive.debian.org|g' /etc/apt/sources.list
 sudo sed -i 's|security.debian.org|archive.debian.org|g' /etc/apt/sources.list
-
-# Удаление устаревших веток (updates/backports), которых нет в архиве
+```
+Удаление устаревших веток (updates/backports), которых нет в архиве
+```bash
 sudo sed -i '/buster-updates/d' /etc/apt/sources.list
 sudo sed -i '/buster-backports/d' /etc/apt/sources.list
-
-# Отключение проверки срока действия (обязательно для архивов)
+```
+Отключение проверки срока действия (обязательно для архивов)
+```bash
 echo 'Acquire::Check-Valid-Until "false";' | sudo tee /etc/apt/apt.conf.d/99no-check-valid-until
-
-# Обновление индексов и установка пакетов
+```
+Обновление индексов и установка пакетов
+```bash
 sudo apt update
 sudo apt install -y ir-keytable python3-evdev
 ```
@@ -58,6 +62,8 @@ sudo systemctl enable --now ir-setup remote-led
 Проверьте, что службы успешно запустились:
 ```bash
 systemctl status ir-setup.service --no-pager
+```
+```bash
 systemctl status remote-led.service --no-pager
 ```
 
@@ -73,23 +79,15 @@ sudo ir-keytable -t
 После запуска служб пульт выполняет следующие действия:
 
 Управление питанием:
-
-    Power — выключение платы (poweroff).
-
-    Mute (выключение звука) — перезагрузка платы (reboot).
+- Power — выключение платы (`poweroff`).
+- Mute (выключение звука) — перезагрузка платы (`reboot`).
 
 Управление красным светодиодом:
-
-    1 — включить (постоянное свечение).
-
-    4 — выключить.
-
-    7 — анимация «сердцебиение».
+- 1 — включить (постоянное свечение).
+- 4 — выключить.
+- 7 — анимация «сердцебиение».
 
 Управление зелёным светодиодом:
-
-    3 — включить (постоянное свечение).
-
-    6 — выключить.
-
-    9 — анимация «сердцебиение».
+- 3 — включить (постоянное свечение).
+- 6 — выключить.
+- 9 — анимация «сердцебиение».
