@@ -5,7 +5,7 @@ Wants=ir-setup.service
 
 [Service]
 Type=idle
-ExecStart=/usr/bin/python3 /home/koltman/remote_led.py
+ExecStart=/usr/bin/python3 /home/orangepi/remote_led.py
 Restart=always
 RestartSec=3
 
