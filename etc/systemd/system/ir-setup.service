@@ -1,0 +1,13 @@
+[Unit]
+Description=Setup IR Remote Keytable
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sleep 5
+ExecStart=-/sbin/modprobe -r sunxi_cir
+ExecStart=/sbin/modprobe sunxi_cir
+ExecStart=/usr/bin/ir-keytable -c -w /home/koltman/cdt-1652s_remote_keymap.toml
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
